@@ -10,8 +10,8 @@
   </ion-slides>
   <div class="login-container">
     <img src="assets/imgs/logo/logo-jchat.png" class="logo" alt="login background image">
-    <form (submit)="doLogin()">
-      <strong>Login:</strong>
+    <form (submit)="doRegister()">
+      <strong>Register:</strong>
         <ion-item>
           <ion-input  name="email" [(ngModel)]="email" type="email" placeholder="Email" ></ion-input>
         </ion-item>
@@ -19,10 +19,9 @@
           <ion-input  name="password" [(ngModel)]="password" type="password" placeholder="Password" 
           ></ion-input>
         </ion-item>
-        <button ion-button block type="submit" margin color="danger">Login</button>
+        <button ion-button block type="submit" margin color="danger">Register</button>
         <p>
-          <strong (click)="openForgotPassword()">Forgot your password?</strong>
-          <strong (click)="openRegister()">Register</strong>
+          <strong (click)="openLogin()">Login</strong>
         </p>
     </form>
   </div>
