@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { HomePage } from '../home/home';
 /**
  * Generated class for the RegisterPage page.
@@ -20,9 +21,9 @@ export class RegisterPage {
     'assets/imgs/background/background-3.jpg',
     'assets/imgs/background/background-4.jpg'
   ];
-  email: string;
+  userName: string;
   password: string;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
+  constructor(private afAuth: AngularFireAuth, public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
@@ -43,13 +44,25 @@ export class RegisterPage {
   }
 
   doRegister() {
-    if (this.email == 'a@a.com' && this.password == 'admin123') {
-      console.log('user data', this.email, this.password);
-      this.showAlert('Successful', 'You are register in!');
-    } else {
-      console.log('user data', this.email, this.password);
-      this.showAlert('Failed', 'You are not registered in!');
-    }
+    this.afAuth.auth.createUserAndRetrieveDataWithEmailAndPassword(this.userName + '@domain.xta', this.password)
+    .then((data) => {
+      console.log('got Data ', data);
+      this.showAlert('Successful', 'You are registered!');
+      this.userName = '';
+      this.password = '';
+    })
+    .catch( error => {
+      console.log('got Error ', error);
+      this.showAlert('Failed', error.message);
+      
+    });
+    // if (this.email == 'a@a.com' && this.password == 'admin123') {
+    //   console.log('user data', this.email, this.password);
+    //   this.showAlert('Successful', 'You are register in!');
+    // } else {
+    //   console.log('user data', this.email, this.password);
+    //   this.showAlert('Failed', 'You are not registered in!');
+    // }
   }
 
 }

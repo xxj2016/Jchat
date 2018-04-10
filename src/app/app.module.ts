@@ -7,22 +7,45 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { RegisterPage } from '../pages/register/register';
+import { LoggedinPage } from '../pages/loggedin/loggedin';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
+
+
+const firebaseAuth = {
+  apiKey: "AIzaSyCcoPnoWiWU_vzR6FCd8ZiHmmFb-JFJM-A",
+  authDomain: "test-project-92f84.firebaseapp.com",
+  databaseURL: "https://test-project-92f84.firebaseio.com",
+  projectId: "test-project-92f84",
+  storageBucket: "",
+  messagingSenderId: "307792417417"
+};
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    RegisterPage
+    RegisterPage,
+    LoggedinPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseAuth),
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    AngularFireAuthModule,
+    AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
-    RegisterPage
+    RegisterPage,
+    LoggedinPage
   ],
   providers: [
     StatusBar,
