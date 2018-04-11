@@ -2,17 +2,24 @@ page-loggedin {
     .innerMessages {
         display: inline-block;
         padding: 5px 10px;
-        background: color($colors, 'primary');
         margin: 5px;
-        color: white;
-        border-radius: 3px;
+        max-width: 80%;
+        
     }
     .username {
+        color: #888;
         font-weight: bold;
         font-size: 88%;
     }
+
     .message {
         font-size: 120%;
+        color: white;
+        padding: 5px 15px;
+        margin: 5px 0;
+        width: auto;
+        border-radius: 3px;
+        background: color($colors, primary);
     }
     .footerBox {
         display: flex;
@@ -21,10 +28,10 @@ page-loggedin {
         border-radius: 0;
         margin: 0;
     }
-    .innerMessages.messageRight {
+    .innerMessages.messageRight .message {
         background: color($colors, secondary);
     }
-    .message:after {
+    .message-warp:after {
         content: '';
         display: block;
         clear: both;
@@ -35,4 +42,56 @@ page-loggedin {
     .messageRight {
         float: right;
     }
+   
+    .triangle-right, .triangle-left {
+        position: relative;
+    }
+    .triangle-right::before, .triangle-right::after {
+        content: '';
+        position: absolute;
+        width: 0px;
+        height: 0px;
+        border: 8px solid color($colors, secondary);
+        border-color: transparent transparent transparent color($colors, secondary);
+        border-style: dashed dashed dashed solid;
+        right: -14px;
+        top: 10%;
+        transform: rotate(-15deg) 
+    }
+    .triangle-left::before, .triangle-left::after {
+        content: '';
+        position: absolute;
+        width: 0px;
+        height: 0px;
+        border: 8px solid color($colors, primary);
+        border-color: transparent color($colors, primary) transparent transparent;
+        border-style: dashed solid dashed dashed;
+        left: -14px;
+        top: 10%;
+        transform: rotate(15deg)
+    }
+
+    .message-img {
+        position: absolute;
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        box-shadow: 0 0 2px rgba(0, 0, 0, 0.36);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .innerMessages.messageLeft .message-img {
+        left: 10px;
+    }
+    .innerMessages.messageRight .message-img {
+        right: 10px;
+    }
+    .innerMessages.messageLeft .message-detail, .innerMessages.messageLeft .username {
+        padding-left: 35px;
+    }
+    .innerMessages.messageRight .message-detail, .innerMessages.messageRight .username {
+        padding-right: 35px;
+    }
+
 }

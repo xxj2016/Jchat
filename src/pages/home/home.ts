@@ -44,7 +44,9 @@ export class HomePage {
     this.afAuth.auth.signInAndRetrieveDataWithEmailAndPassword(this.userName + '@domain.xta', this.password)
     .then( data => {
       console.log('got some Data ', data);
-      this.navCtrl.setRoot(LoggedinPage);
+      this.userName = '';
+      this.password = '';
+      this.navCtrl.push(LoggedinPage);
     })
     .catch( error => {
       console.log('got some error ', error);
