@@ -12,7 +12,7 @@ page-loggedin {
         font-size: 88%;
     }
 
-    .message {
+    .messageContent {
         font-size: 120%;
         color: white;
         padding: 5px 15px;
@@ -28,7 +28,7 @@ page-loggedin {
         border-radius: 0;
         margin: 0;
     }
-    .innerMessages.messageRight .message {
+    .innerMessages.messageRight .messageContent {
         background: color($colors, secondary);
     }
     .message-warp:after {
@@ -93,5 +93,39 @@ page-loggedin {
     .innerMessages.messageRight .message-detail, .innerMessages.messageRight .username {
         padding-right: 35px;
     }
+
+    // 进入房间的提示信息 start
+    .message-warp.special .innerMessages {
+        max-width: 100%;
+        width: 100%;
+        position: relative;
+    }
+
+    .message-warp.special .innerMessages .message-detail {
+        padding-left: 0;
+        padding-right: 0;
+        text-align: center;
+    }
+    .message-warp.special .messageContent {
+        background: white;
+        color: #888;
+        font-size: 80%;
+        float: none;
+        padding: 0 10px;
+        display: inline-block;
+    }
+
+    .message-warp.special .innerMessages:before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        display: block;
+        height: 1px;
+        width: 100%;
+        background: #F1F2F3;
+        z-index: -1;
+    }
+    // 进入房间的提示信息 end
 
 }

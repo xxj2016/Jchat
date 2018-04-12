@@ -20,13 +20,13 @@
 
 <ion-content padding>
     <div id="chatMessages">
-      <div class="message-warp" *ngFor="let message of messages" >
-        <div class="innerMessages" [ngClass]="{'messageLeft': message.username !== username,'messageRight': message.username === username}" >
+      <div class="message-warp" *ngFor="let message of messages" [ngClass]="{'special': message.specialMessage}" >
+        <div class="innerMessages" [ngClass]="{'messageLeft':!message.specialMessage &&  message.username !== username,'messageRight': !message.specialMessage && message.username === username}" >
           <!-- <img class="message-img" src="assets/imgs/background/background-1.jpg"> -->
-          <div class="message-img">{{message.username.split('@')[0]}}</div>
-          <div class="username">{{message.username}}</div>
+          <div class="message-img" *ngIf="!message.specialMessage" >{{message.username.split('@')[0]}}</div>
+          <div class="username" *ngIf="!message.specialMessage">{{message.username}}</div>
           <div class="message-detail">
-            <div class="message" [ngClass]="{'triangle-left': message.username !== username,'triangle-right': message.username === username}">{{message.message}}</div>
+            <div class="messageContent" [ngClass]="{'triangle-left': !message.specialMessage && message.username !== username,'triangle-right': !message.specialMessage && message.username === username}">{{message.message}}</div>
           </div>
         </div>
       </div>

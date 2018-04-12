@@ -21,14 +21,14 @@ export class LoggedinPage {
   email: string;
   username: string;
   message: string;
-  s;
+  _chatSubscription;
   obser: Observable<any[]>;
   messages: Array<any[]> = [];
   constructor(private afAuth: AngularFireAuth, private db: AngularFireDatabase, public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
     this.email = this.afAuth.auth.currentUser.email;
     this.username = this.afAuth.auth.currentUser.email;
     this.obser = this.db.list('/chat').valueChanges();
-    this.obser.subscribe( (data)=> {
+    this._chatSubscription = this.obser.subscribe( (data)=> {
       this.scrollToBottom();
       this.messages =  data;
       console.log(this.messages);
@@ -45,34 +45,34 @@ export class LoggedinPage {
 
   showAlert(title: string, message: string) {
     let alert = this.alertCtrl.create({
-       title: title,
-       subTitle: message,
-       buttons: ['OK']
-     });
-     alert.present();
- }
+      title: title,
+      subTitle: message,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
 
- showConfirm() {
-  let confirm = this.alertCtrl.create({
-    title: '提示?',
-    message: '确定清除所有聊天数据?',
-    buttons: [
-      {
-        text: '取消',
-        handler: () => {
-          console.log('已经取消清除');
+  showConfirm() {
+    let confirm = this.alertCtrl.create({
+      title: '提示?',
+      message: '确定清除所有聊天数据?',
+      buttons: [
+        {
+          text: '取消',
+          handler: () => {
+            console.log('已经取消清除');
+          }
+        },
+        {
+          text: '确定',
+          handler: () => {
+            this.clearMessage();
+          }
         }
-      },
-      {
-        text: '确定',
-        handler: () => {
-          this.clearMessage();
-        }
-      }
-    ]
-  });
-  confirm.present();
-}
+      ]
+    });
+    confirm.present();
+    }
 
   sendMessage() {
     this.db.list('/chat').push({
@@ -95,6 +95,17 @@ export class LoggedinPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoggedinPage');
+    this.db.list('chat').push({
+      specialMessage: true,
+      message: `${this.username} has joined the room`
+    })
   }
 
+  ionViewWillLeave(){
+    this._chatSubscription.unsubscribe();
+    this.db.list('/chat').push({
+      specialMessage: true,
+      message: `${this.username} has left the room`
+    })
+  }
 }
